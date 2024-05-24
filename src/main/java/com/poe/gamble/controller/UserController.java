@@ -8,10 +8,7 @@ import com.poe.gamble.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -22,4 +19,11 @@ public class UserController {
     public ResponseEntity<CommonResponse<UserDTO>> getUserByEmail(@PathVariable String email) {
         return ResponseEntity.ok(CommonResponse.success(userService.getUserByEmail(email), CommonCode.FOUND_OK));
     }
+
+    @PostMapping
+    public ResponseEntity<CommonResponse<String>> createUser(@Valid @RequestBody UserDTO userDTO) {
+        userService.createUser(userDTO);
+        return ResponseEntity.ok(CommonResponse.success("OK", CommonCode.CREATE_OK));
+    }
+
 }
