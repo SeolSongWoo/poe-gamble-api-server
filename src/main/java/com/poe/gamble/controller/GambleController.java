@@ -8,15 +8,17 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/gamble")
 public class GambleController {
 
     private final GambleService gambleService;
-    @PostMapping("/cards/{cardName}/stock/{stockQuantity}")
+    @PostMapping("/try")
     public ResponseEntity<CommonResponse<GambleDTO.Response>> tryGambling(@RequestBody GambleDTO.Request gambleDTO) {
-        final String userUUID = "3244324-324234-432432";
+        final UUID userUUID = UUID.fromString("296dfdaa-9d9d-4250-9d93-f5ba56bf7f0e");
         return ResponseEntity.ok(CommonResponse.success(gambleService.tryGambling(userUUID,gambleDTO), CommonCode.FOUND_OK));
     }
 

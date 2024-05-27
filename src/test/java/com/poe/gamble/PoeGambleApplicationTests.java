@@ -14,6 +14,7 @@ class PoeGambleApplicationTests {
     @Autowired
     private UserRepository userRepository;
 
+
     @Test
     void contextLoads() {
     }

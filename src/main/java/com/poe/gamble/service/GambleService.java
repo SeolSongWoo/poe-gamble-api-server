@@ -18,12 +18,22 @@ public class GambleService {
     private final CardService cardService;
     private final UserCardService userCardService;
     public GambleDTO.Response tryGambling(UUID userUUID,GambleDTO.Request request) {
-        CardDTO card = cardService.getCardByName(request.getCardName());
-        UserCardDTO userCard = userCardService.getAccountCardByUUIDAndCardId(userUUID, card.getId());
+        CardDTO cardDTO = cardService.getCardByName(request.getCardName());
+        UserCardDTO userCard = userCardService.getAccountCardByUUIDAndCardId(userUUID, cardDTO.getId());
 
-        checkStock(request.getStockQuantity(), card.getMaxQuantity(), userCard.getQuantity());
+        checkStock(request.getTryQuantity(), cardDTO.getMaxQuantity(), userCard.getStockQuantity());
 
-        Long resultQuantity = CardEnum.Gambling.GAMBLE.apply(request.getStockQuantity());
+        Long resultQuantity = CardEnum.Gambling.GAMBLE.apply(request.getTryQuantity());
+        Long userStockQuantity = resultQuantity - request.getTryQuantity() + userCard.getStockQuantity();
+
+        userCardService.updateStockQuantity(userUUID, cardDTO.getId(), userStockQuantity);
+
+        return GambleDTO.Response.builder()
+                .cardName(cardDTO.getName())
+                .tryQuantity(request.getTryQuantity())
+                .stockQuantity(resultQuantity)
+                .userCardStockQuantity(userStockQuantity)
+                .build();
     }
 
     private void checkStock(Long gambleQuantity, Long maxQuantity, Long stockQuantity) throws CardGambleException {

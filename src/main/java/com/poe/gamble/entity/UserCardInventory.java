@@ -3,17 +3,15 @@ package com.poe.gamble.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 
-import java.util.List;
-
 @Entity
 @Getter
-public class UserCard {
+public class UserCardInventory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private Long quantity;
+    private Long stockQuantity;
 
     @ManyToOne
     @JoinColumn(name = "card_id")
@@ -22,4 +20,8 @@ public class UserCard {
     @ManyToOne
     @JoinColumn(name = "account_id")
     private Account account;
+
+    public void updateStockQuantity(Long userStockQuantity) {
+        this.stockQuantity = userStockQuantity;
+    }
 }

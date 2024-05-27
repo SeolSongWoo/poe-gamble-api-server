@@ -6,13 +6,14 @@ import com.poe.gamble.exception.user.DuplicateUserException;
 import com.poe.gamble.exception.user.UserNotFoundException;
 import com.poe.gamble.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
-
+    private final PasswordEncoder passwordEncoder;
 
     public UserDTO getUserByEmail(String email) {
         Account account = userRepository.findUserByEmail(email)
@@ -27,6 +28,7 @@ public class UserService {
         Account account = Account.builder()
                 .poeName(userDTO.getPoeName())
                 .email(userDTO.getEmail())
+                .password(passwordEncoder.encode(userDTO.getPassword()))
                 .build();
         userRepository.save(account);
     }

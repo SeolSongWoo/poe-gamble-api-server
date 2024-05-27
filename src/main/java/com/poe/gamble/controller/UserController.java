@@ -20,7 +20,7 @@ public class UserController {
         return ResponseEntity.ok(CommonResponse.success(userService.getUserByEmail(email), CommonCode.FOUND_OK));
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<CommonResponse<String>> createUser(@Valid @RequestBody UserDTO userDTO) {
         userService.createUser(userDTO);
         return ResponseEntity.ok(CommonResponse.success("OK", CommonCode.CREATE_OK));

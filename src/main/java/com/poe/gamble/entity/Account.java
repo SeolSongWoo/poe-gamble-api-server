@@ -26,7 +26,10 @@ public class Account {
     @Column(length = 50)
     private String email;
 
+    @Column
+    private String password;
+
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<UserCard> userCard;
+    private List<UserCardInventory> userCardInventory;
 
 }

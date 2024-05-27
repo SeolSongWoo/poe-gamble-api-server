@@ -18,5 +18,5 @@ public class Card {
     private Long maxQuantity;
 
     @OneToMany(mappedBy = "card", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<UserCard> userCard;
+    private List<UserCardInventory> userCardInventory;
 }

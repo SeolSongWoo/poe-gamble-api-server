@@ -14,7 +14,7 @@ import java.util.function.Function;
 @Getter
 public enum CardEnum {
     UNREQUITED_LOVE("UNREQUITED_LOVE"),
-    THE_APOTHECARY("The_APOTHECARY"),
+    THE_APOTHECARY("THE_APOTHECARY"),
     HOUSE_OF_MIRRORS("HOUSE_OF_MIRRORS");
 
     private String name;
@@ -28,7 +28,7 @@ public enum CardEnum {
             return random.nextLong(quantity * 2 + 1);
         });
 
-        private Function<Long, Long> function;
+        private final Function<Long, Long> function;
 
         Gambling(Function<Long, Long> function) {
             this.function = function;

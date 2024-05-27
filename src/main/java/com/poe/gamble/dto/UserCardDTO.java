@@ -1,6 +1,6 @@
 package com.poe.gamble.dto;
 
-import com.poe.gamble.entity.UserCard;
+import com.poe.gamble.entity.UserCardInventory;
 import lombok.Builder;
 import lombok.Data;
 
@@ -9,13 +9,13 @@ import lombok.Data;
 public class UserCardDTO {
     private Long id;
     private String cardName;
-    private Long quantity;
+    private Long stockQuantity;
 
-    public static UserCardDTO from(UserCard userCard) {
+    public static UserCardDTO from(UserCardInventory userCardInventory) {
         return UserCardDTO.builder()
-                .id(userCard.getId())
-                .cardName(userCard.getCard().getName())
-                .quantity(userCard.getQuantity())
+                .id(userCardInventory.getId())
+                .cardName(userCardInventory.getCard().getName())
+                .stockQuantity(userCardInventory.getStockQuantity())
                 .build();
     }
 }

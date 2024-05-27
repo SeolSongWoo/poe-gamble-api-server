@@ -1,12 +1,12 @@
 package com.poe.gamble.service;
 
-import com.poe.gamble.dto.CardDTO;
 import com.poe.gamble.dto.UserCardDTO;
-import com.poe.gamble.entity.UserCard;
+import com.poe.gamble.entity.UserCardInventory;
 import com.poe.gamble.exception.user.UserCardNotFoundException;
 import com.poe.gamble.repository.UserCardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
@@ -16,9 +16,16 @@ public class UserCardService {
     private final UserCardRepository userCardRepository;
 
     public UserCardDTO getAccountCardByUUIDAndCardId(UUID userUUID, Long cardId) {
-        UserCard userCard = userCardRepository.findByAccountUUIDAndCardId(userUUID, cardId)
+        UserCardInventory userCardInventory = userCardRepository.findByAccountUUIDAndCardId(userUUID, cardId)
                 .orElseThrow(() -> new UserCardNotFoundException("User card not found"));
 
-        return UserCardDTO.from(userCard);
+        return UserCardDTO.from(userCardInventory);
+    }
+
+    @Transactional
+    public void updateStockQuantity(UUID userUUID, Long cardId, Long userStockQuantity) {
+        UserCardInventory userCardInventory = userCardRepository.findByAccountUUIDAndCardId(userUUID, cardId)
+                .orElseThrow(() -> new UserCardNotFoundException("User card not found"));
+        userCardInventory.updateStockQuantity(userStockQuantity);
     }
 }
