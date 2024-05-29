@@ -4,6 +4,8 @@ import com.poe.gamble.entity.UserCardInventory;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Builder
 public class UserCardDTO {
@@ -17,5 +19,11 @@ public class UserCardDTO {
                 .cardName(userCardInventory.getCard().getName())
                 .stockQuantity(userCardInventory.getStockQuantity())
                 .build();
+    }
+
+    public static List<UserCardDTO> fromList(List<UserCardInventory> userCardInventory) {
+        return userCardInventory.stream()
+                .map(UserCardDTO::from)
+                .toList();
     }
 }

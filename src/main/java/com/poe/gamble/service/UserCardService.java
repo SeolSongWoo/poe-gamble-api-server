@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -27,5 +28,10 @@ public class UserCardService {
         UserCardInventory userCardInventory = userCardRepository.findByAccountUUIDAndCardId(userUUID, cardId)
                 .orElseThrow(() -> new UserCardNotFoundException("User card not found"));
         userCardInventory.updateStockQuantity(userStockQuantity);
+    }
+
+    public List<UserCardDTO> getUserCardsByUUID(UUID userUUID) {
+        List<UserCardInventory> userCardInventory = userCardRepository.findByAccountUUID(userUUID);
+        return UserCardDTO.fromList(userCardInventory);
     }
 }

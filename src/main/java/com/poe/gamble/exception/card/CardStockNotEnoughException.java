@@ -1,4 +1,4 @@
-package com.poe.gamble.exception.user;
+package com.poe.gamble.exception.card;
 
 public class CardStockNotEnoughException extends CardGambleException{
     public CardStockNotEnoughException(String message) {

@@ -41,6 +41,7 @@ public class SecurityConfig {
                         .requestMatchers("/h2-console/**").permitAll()
                         .requestMatchers("/api/v1/authenticate").permitAll()
                         .requestMatchers("/api/v1/users/create").permitAll()
+                        .requestMatchers("/api/v1/users/cards").permitAll()
                         .anyRequest().authenticated()
                 )
                 .headers(headers -> headers
@@ -55,6 +56,6 @@ public class SecurityConfig {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return web -> web.ignoring()
-                .requestMatchers("/api/v1/users/create");
+                .requestMatchers("/api/v1/users/create","/api/v1/users/cards");
     }
 }

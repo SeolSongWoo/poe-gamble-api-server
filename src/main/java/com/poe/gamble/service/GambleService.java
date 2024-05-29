@@ -4,9 +4,9 @@ import com.poe.gamble.dto.CardDTO;
 import com.poe.gamble.dto.GambleDTO;
 import com.poe.gamble.dto.UserCardDTO;
 import com.poe.gamble.enums.CardEnum;
-import com.poe.gamble.exception.user.CardGambleException;
-import com.poe.gamble.exception.user.CardStockNotEnoughException;
-import com.poe.gamble.exception.user.CardStockTooMuchException;
+import com.poe.gamble.exception.card.CardGambleException;
+import com.poe.gamble.exception.card.CardStockNotEnoughException;
+import com.poe.gamble.exception.card.CardStockTooMuchException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

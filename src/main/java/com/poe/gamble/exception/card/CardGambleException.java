@@ -1,4 +1,4 @@
-package com.poe.gamble.exception.user;
+package com.poe.gamble.exception.card;
 
 public class CardGambleException extends RuntimeException{
 
