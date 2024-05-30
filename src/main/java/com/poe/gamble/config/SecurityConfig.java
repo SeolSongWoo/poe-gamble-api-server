@@ -42,6 +42,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/authenticate").permitAll()
                         .requestMatchers("/api/v1/users/create").permitAll()
                         .requestMatchers("/api/v1/users/cards").permitAll()
+                        .requestMatchers("/api/v1/gamble/try").permitAll()
                         .anyRequest().authenticated()
                 )
                 .headers(headers -> headers
@@ -56,6 +57,6 @@ public class SecurityConfig {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return web -> web.ignoring()
-                .requestMatchers("/api/v1/users/create","/api/v1/users/cards");
+                .requestMatchers("/api/v1/users/create","/api/v1/users/cards","/api/v1/gamble/try");
     }
 }

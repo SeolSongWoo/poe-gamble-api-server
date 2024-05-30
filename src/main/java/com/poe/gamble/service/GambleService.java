@@ -40,7 +40,7 @@ public class GambleService {
         if(gambleQuantity * 2 > maxQuantity) {
             throw new CardStockTooMuchException("To much Stock");
         }
-        if(gambleQuantity > stockQuantity) {
+        if(gambleQuantity > stockQuantity || gambleQuantity < 0) {
             throw new CardStockNotEnoughException("Not enough Stock");
         }
     }
