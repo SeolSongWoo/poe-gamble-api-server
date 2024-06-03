@@ -18,6 +18,14 @@ spring:
         properties:
           hibernate:
               format_sql: true
-
 server:
     port: 8080
+
+
+springdoc:
+    swagger-ui:
+        path: /api/docs
+        groups-order: desc
+        tags-sorter: alpha
+        default-models-expand-depth: -1
+    paths-to-match: /api/v1/**

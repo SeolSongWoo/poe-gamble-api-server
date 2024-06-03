@@ -1,11 +1,13 @@
 package com.poe.gamble.dto;
 
 import com.poe.gamble.entity.Card;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
+@Schema(description = "dddddddd")
 public class CardDTO {
     private Long id;
     private String name;
