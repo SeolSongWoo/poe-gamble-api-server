@@ -17,10 +17,10 @@ public class AuthController {
 
     private final AuthService authService;
 
-    @PostMapping("/api/v1/authenticate")
+    @PostMapping("/api/v1/login")
     public ResponseEntity<CommonResponse<String>> createAuthenticationToken(@RequestBody AuthenticationRequestDTO authenticationRequest) {
         final String jwtToken = authService.getJwtToken(authenticationRequest);
 
-        return ResponseEntity.ok(CommonResponse.success(jwtToken, CommonCode.LOGIN_OK));
+        return ResponseEntity.ok(CommonResponse.success("Bearer "+jwtToken, CommonCode.LOGIN_OK));
     }
 }

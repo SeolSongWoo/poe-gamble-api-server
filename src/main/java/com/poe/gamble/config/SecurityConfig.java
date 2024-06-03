@@ -1,8 +1,15 @@
 package com.poe.gamble.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.poe.gamble.auth.AuthService;
 import com.poe.gamble.auth.JwtRequestFilter;
 import com.poe.gamble.auth.JwtUtil;
+import com.poe.gamble.controller.response.CommonCode;
+import com.poe.gamble.controller.response.CommonResponse;
 import jakarta.servlet.DispatcherType;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,11 +20,16 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import java.io.IOException;
+import java.io.PrintWriter;
 
 @Configuration
 @RequiredArgsConstructor
@@ -39,10 +51,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(request -> request
                         .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
                         .requestMatchers("/h2-console/**").permitAll()
-                        .requestMatchers("/api/v1/authenticate").permitAll()
                         .requestMatchers("/api/v1/users/create").permitAll()
-                        .requestMatchers("/api/v1/users/cards").permitAll()
-                        .requestMatchers("/api/v1/gamble/try").permitAll()
+                        .requestMatchers("/api/v1/login").permitAll()
                         .anyRequest().authenticated()
                 )
                 .headers(headers -> headers
@@ -54,9 +64,11 @@ public class SecurityConfig {
         return http.build();
     }
 
+
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return web -> web.ignoring()
-                .requestMatchers("/api/v1/users/create","/api/v1/users/cards","/api/v1/gamble/try");
+                .requestMatchers("/api/v1/users/create"
+                ,"/api/v1/login");
     }
 }

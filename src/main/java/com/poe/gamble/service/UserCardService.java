@@ -17,7 +17,7 @@ public class UserCardService {
     private final UserCardRepository userCardRepository;
 
     public UserCardDTO getAccountCardByUUIDAndCardId(UUID userUUID, Long cardId) {
-        UserCardInventory userCardInventory = userCardRepository.findByAccountUUIDAndCardId(userUUID, cardId)
+        UserCardInventory userCardInventory = userCardRepository.findUserCardInventoriesByAccountIdAndCardId(userUUID, cardId)
                 .orElseThrow(() -> new UserCardNotFoundException("User card not found"));
 
         return UserCardDTO.from(userCardInventory);
@@ -25,13 +25,13 @@ public class UserCardService {
 
     @Transactional
     public void updateStockQuantity(UUID userUUID, Long cardId, Long userStockQuantity) {
-        UserCardInventory userCardInventory = userCardRepository.findByAccountUUIDAndCardId(userUUID, cardId)
+        UserCardInventory userCardInventory = userCardRepository.findUserCardInventoriesByAccountIdAndCardId(userUUID, cardId)
                 .orElseThrow(() -> new UserCardNotFoundException("User card not found"));
         userCardInventory.updateStockQuantity(userStockQuantity);
     }
 
     public List<UserCardDTO> getUserCardsByUUID(UUID userUUID) {
-        List<UserCardInventory> userCardInventory = userCardRepository.findByAccountUUID(userUUID);
+        List<UserCardInventory> userCardInventory = userCardRepository.findByAccountId(userUUID);
         return UserCardDTO.fromList(userCardInventory);
     }
 }
