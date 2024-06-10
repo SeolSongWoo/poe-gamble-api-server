@@ -41,9 +41,7 @@ public class UserController {
 
     @GetMapping("/cards")
     @Operation(summary = "특정 유저의 카드정보", description = "특정 유저의 카드 정보 API")
-    public ResponseEntity<CommonResponse<List<UserCardDTO>>> getUserCardsByUUID(@CurrentUserEmail String userEmail) {
-
-        final UUID userUUID = UUID.fromString("296dfdaa-9d9d-4250-9d93-f5ba56bf7f0e");
+    public ResponseEntity<CommonResponse<List<UserCardDTO>>> getUserCardsByUUID(@CurrentUserEmail UUID userUUID) {
         return ResponseEntity.ok(CommonResponse.success(userCardService.getUserCardsByUUID(userUUID), CommonCode.FOUND_OK));
     }
 

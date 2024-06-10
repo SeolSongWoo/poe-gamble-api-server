@@ -9,6 +9,8 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
+import java.util.UUID;
+
 public class CurrentUserEmailArgumentResolver implements HandlerMethodArgumentResolver {
 
     @Override
@@ -20,8 +22,10 @@ public class CurrentUserEmailArgumentResolver implements HandlerMethodArgumentRe
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
-            return ((UserDetails) principal).getUsername();
+
+            return UUID.fromString(((UserDetails) principal).getUsername());
         } else {
-            return principal.toString();
-        }    }
+            return UUID.fromString(principal.toString());
+        }
+    }
 }

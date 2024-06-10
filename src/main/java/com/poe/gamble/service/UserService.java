@@ -36,4 +36,10 @@ public class UserService {
                 .build();
         userRepository.save(account);
     }
+
+    public UserDTO getUserByUUID(UUID uuid) {
+        Account account = userRepository.findAccountById(uuid)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+        return UserDTO.from(account);
+    }
 }
