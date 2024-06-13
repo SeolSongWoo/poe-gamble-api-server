@@ -7,7 +7,6 @@ import lombok.Data;
 
 @Data
 @Builder
-@Schema(description = "dddddddd")
 public class CardDTO {
     private Long id;
     private String name;

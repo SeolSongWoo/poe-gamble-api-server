@@ -17,6 +17,7 @@ import java.util.UUID;
 public class GambleService {
     private final CardService cardService;
     private final UserCardService userCardService;
+    private final LoggingService loggingService;
     public GambleDTO.Response tryGambling(UUID userUUID,GambleDTO.Request request) {
         CardDTO cardDTO = cardService.getCardByName(request.getCardName());
         UserCardDTO userCard = userCardService.getAccountCardByUUIDAndCardId(userUUID, cardDTO.getId());
@@ -24,9 +25,14 @@ public class GambleService {
         checkStock(request.getTryQuantity(), cardDTO.getMaxQuantity(), userCard.getStockQuantity());
 
         Long resultQuantity = CardEnum.Gambling.GAMBLE.apply(request.getTryQuantity());
+
         Long userStockQuantity = resultQuantity - request.getTryQuantity() + userCard.getStockQuantity();
 
         userCardService.updateStockQuantity(userUUID, cardDTO.getId(), userStockQuantity);
+
+        Long differenceQuantity = resultQuantity - request.getTryQuantity();
+
+        loggingService.gambleLogging(userUUID, differenceQuantity);
 
         return GambleDTO.Response.builder()
                 .cardName(cardDTO.getName())

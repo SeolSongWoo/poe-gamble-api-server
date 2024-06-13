@@ -52,7 +52,7 @@ public class GambleServiceTest {
     }
 
     @Test
-    public void testTryGambling_Success() {
+    public void 겜블링_이벤트_성공() {
         System.out.println(UUID.randomUUID());
         when(cardService.getCardByName(anyString())).thenReturn(cardDTO);
         when(userCardService.getAccountCardByUUIDAndCardId(any(UUID.class), anyLong())).thenReturn(userCardDTO);
@@ -75,7 +75,7 @@ public class GambleServiceTest {
     }
 
     @Test
-    public void testTryGambling_CardStockTooMuchException() {
+    public void 겜블링_이벤트_겜블시도갯수_초과_예외() {
         request = new GambleDTO.Request("CardName", 6L);
 
         when(cardService.getCardByName(anyString())).thenReturn(cardDTO);
@@ -89,7 +89,7 @@ public class GambleServiceTest {
     }
 
     @Test
-    public void testTryGambling_CardStockNotEnoughException() {
+    public void 겜블링_이벤트_카드갯수_부족_예외() {
         userCardDTO.setStockQuantity(4L);
 
         when(cardService.getCardByName(anyString())).thenReturn(cardDTO);
