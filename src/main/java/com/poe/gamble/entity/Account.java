@@ -33,4 +33,6 @@ public class Account {
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserCardInventory> userCardInventory;
 
+
+
 }
