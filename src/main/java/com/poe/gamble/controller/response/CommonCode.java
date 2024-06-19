@@ -15,13 +15,16 @@ public enum CommonCode {
     FOUND_OK(200, "Resource found"),
     REQUEST_OK(200, "Request successful"),
     LOGIN_OK(200,"Login successful"),
+    TOKEN_RENEW(205,"Token renewed" ),
 
     // Client error codes
     BAD_REQUEST(400, "Bad request"),
+    UNAUTHORIZED(401, "Unauthorized"),
     PAGE_NOT_FOUND(404, "Page not found"),
     USER_NOT_FOUND(404, "User not found"),
     FORBIDDEN(403, "Forbidden"),
     DUPLICATE(409,"Duplicate Occurrence"),
+    ACCESS_TOKEN_EXPIRED(401,"Access Token Expired"),
 
 
     // Server error codes

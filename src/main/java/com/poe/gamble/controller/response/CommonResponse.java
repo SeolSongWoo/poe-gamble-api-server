@@ -1,5 +1,6 @@
 package com.poe.gamble.controller.response;
 
+import com.poe.gamble.auth.JwtUtil;
 import lombok.Getter;
 import lombok.Setter;
 

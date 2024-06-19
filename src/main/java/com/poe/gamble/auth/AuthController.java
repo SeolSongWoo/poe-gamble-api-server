@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @RestController
 @RequiredArgsConstructor
 public class AuthController {
@@ -18,9 +20,9 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/api/v1/login")
-    public ResponseEntity<CommonResponse<String>> createAuthenticationToken(@RequestBody AuthenticationRequestDTO authenticationRequest) {
-        final String jwtToken = authService.getJwtToken(authenticationRequest);
+    public ResponseEntity<CommonResponse<JwtUtil.TokenDTO>> createAuthenticationToken(@RequestBody AuthenticationRequestDTO authenticationRequest) {
+        final JwtUtil.TokenDTO jwtToken = authService.getJwtToken(authenticationRequest);
 
-        return ResponseEntity.ok(CommonResponse.success("Bearer "+jwtToken, CommonCode.LOGIN_OK));
+        return ResponseEntity.ok(CommonResponse.success(jwtToken, CommonCode.LOGIN_OK));
     }
 }

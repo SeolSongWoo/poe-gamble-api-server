@@ -20,7 +20,7 @@ public enum CardEnum {
     private String name;
 
     public enum Gambling {
-        GAMBLE( (quantity) -> {
+        GAMBLE((quantity) -> {
             if (quantity <= 0) {
                 throw new IllegalArgumentException("quantity is less than 0");
             }

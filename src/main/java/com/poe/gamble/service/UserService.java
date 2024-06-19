@@ -3,12 +3,14 @@ package com.poe.gamble.service;
 import com.poe.gamble.dto.UserCardDTO;
 import com.poe.gamble.dto.UserDTO;
 import com.poe.gamble.entity.Account;
+import com.poe.gamble.entity.UserToken;
 import com.poe.gamble.exception.user.DuplicateUserException;
 import com.poe.gamble.exception.user.UserNotFoundException;
 import com.poe.gamble.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -26,7 +28,7 @@ public class UserService {
     }
 
     public void createUser(UserDTO userDTO) {
-        if(userRepository.existsByEmail(userDTO.getEmail())) {
+        if (userRepository.existsByEmail(userDTO.getEmail())) {
             throw new DuplicateUserException("User already exists");
         }
         Account account = Account.builder()
@@ -41,5 +43,29 @@ public class UserService {
         Account account = userRepository.findAccountById(uuid)
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
         return UserDTO.from(account);
+    }
+
+    @Transactional
+    public void saveUserToken(UUID uuid, String token) {
+        Account account = userRepository.findAccountById(uuid)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+        UserToken userToken = UserToken.builder()
+                .token(token)
+                .account(account)
+                .build();
+        account.updateToken(userToken);
+    }
+
+    public String getUserToken(UUID uuid) {
+        Account account = userRepository.findAccountById(uuid)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+        return account.getToken().getToken();
+    }
+
+    @Transactional
+    public void updateUserToken(UUID uuid, String token) {
+        Account account = userRepository.findAccountById(uuid)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+        account.getToken().updateToken(token);
     }
 }

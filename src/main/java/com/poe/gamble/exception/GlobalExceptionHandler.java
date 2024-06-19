@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -19,6 +20,13 @@ public class GlobalExceptionHandler {
         final String requestURL = request.getRequestURI();
         log.error("handleCardGambleException - Request URL : {}, Exception: ",requestURL, e);
         return new ResponseEntity<>(CommonResponse.error(CommonCode.BAD_REQUEST), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<CommonResponse<?>> handleBadCredentialsException(BadCredentialsException e, HttpServletRequest request) {
+        final String requestURL = request.getRequestURI();
+        log.error("handleBadCredentialsException - Request URL : {}, Exception: ",requestURL, e);
+        return new ResponseEntity<>(CommonResponse.error(CommonCode.UNAUTHORIZED), HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler(Exception.class)
