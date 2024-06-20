@@ -27,7 +27,6 @@ import java.util.UUID;
 public class AuthorizationExceptionHandler {
     private final UserService userService;
     private final JwtUtil jwtUtil;
-    private final UserDetailsService customUserDetailsService;
     @ExceptionHandler(AccessTokenExpiredException.class)
     public ResponseEntity<CommonResponse<?>> handleAccessTokenExpiredException(AccessTokenExpiredException e, HttpServletRequest request) {
         final String refreshToken = request.getHeader("RefreshToken");

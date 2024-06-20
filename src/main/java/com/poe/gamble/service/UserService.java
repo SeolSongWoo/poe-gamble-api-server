@@ -1,6 +1,5 @@
 package com.poe.gamble.service;
 
-import com.poe.gamble.dto.UserCardDTO;
 import com.poe.gamble.dto.UserDTO;
 import com.poe.gamble.entity.Account;
 import com.poe.gamble.entity.UserToken;
@@ -12,7 +11,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -53,7 +51,7 @@ public class UserService {
                 .token(token)
                 .account(account)
                 .build();
-        account.updateToken(userToken);
+        account.updateUserToken(userToken);
     }
 
     public String getUserToken(UUID uuid) {
