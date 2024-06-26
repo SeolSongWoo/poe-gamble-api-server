@@ -1,9 +1,10 @@
-# POE GAMBLE
+# [POE GAMBLE](https://github.com/SeolSongWoo)
 - GGG(Grinding Gear Games)에서 개발한 Path Of Exile의 게임 내 기능 중 하나인 푸르미 겜블 기능을 웹사이트로 구현하였습니다!
 - 본 프로젝트는 비영리성 목적이며, 단순 포트폴리오 목적으로 제작되었습니다.
 
+
 ## Team
-본 프로젝트는 [SeolSongWoo](https://githhub.com/SeolSongWoo)가 제작하였습니다.
+본 프로젝트는 [SeolSongWoo](https://github.com/SeolSongWoo)가 제작하였습니다.
 
 ## Why Create?
 - Path Of Exile에서 비싼 값어치를 자랑하는 카드들로 푸르미 겜블기능을 원없이 해보고싶어서 만들게되었습니다!
