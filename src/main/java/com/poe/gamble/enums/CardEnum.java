@@ -4,9 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Function;
 
 @NoArgsConstructor
@@ -24,8 +22,7 @@ public enum CardEnum {
             if (quantity <= 0) {
                 throw new IllegalArgumentException("quantity is less than 0");
             }
-            Random random = new Random();
-            return random.nextLong(quantity * 2 + 1);
+            return ThreadLocalRandom.current().nextLong(quantity * 2 + 1);
         });
 
         private final Function<Long, Long> function;
